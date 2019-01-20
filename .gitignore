@@ -1,0 +1,11 @@
+# .gitignore
+__pycache__/
+**/*.py[cod]
+
+public/
+build/
+dist/
+downloads/
+**/*~
+**/*.orig
+**/*.bak
