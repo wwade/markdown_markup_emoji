@@ -5,6 +5,8 @@
 Since it is marked up like `<span class="emoji">😃</span>`,
 Make your Emoji bigger You can display it.
 
+![build](https://travis-ci.org/EloiseSeverin/markdown_markup_emoji.svg?branch=master)
+
 ### Installation
 
 Install with pip.
