@@ -6,7 +6,7 @@ import os
 import markdown
 import unittest
 
-EXTENSIONS = ['markup_emoji']
+EXTENSIONS = ['markdown_markup_emoji.markup_emoji']
 TEST_FILES = (
     ('test01.md', 'output01.html'),
 )

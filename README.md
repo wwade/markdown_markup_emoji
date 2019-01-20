@@ -1,6 +1,6 @@
 # markdown_markup_emoji
 
-[Python-Markup][] extension for markup of Emoji in the markdown document.
+[Python-Markdown][] extension for markup of Emoji in the markdown document.
 
 Since it is marked up like `<span class="emoji">😃</span>`,
 Make your Emoji bigger You can display it.
@@ -55,8 +55,8 @@ For example, in Windows 7, pictograms may be displayed in black and white,
 or may not be displayed.
 Different Emoji may be displayed between iOS and Android.
 
-[Emoji List][EmojiList], please reference here.
+[Unicode Full Emoji List][EmojiList] is here, please reference it.
 
 [Python-Markdown]: https://github.com/Python-Markdown/markdown "Python-Markdown"
 [Pelican]: https://blog.getpelican.com/ "Pelican Static Site Generator"
-[EmojiList]: https://unicode.org/emoji/charts/full-emoji-list.html "Full Emoji List"
+[EmojiList]: https://unicode.org/emoji/charts/full-emoji-list.html "Emoji List"
