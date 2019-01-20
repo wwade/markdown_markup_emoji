@@ -44,7 +44,8 @@ MARKDOWN = {
 ### Add your style
 
 Since it is marked up like `<span class="emoji">😃</span>`,
-Add a style to be displayed with a slightly bigger font.
+Add a style to be displayed with a bigger font.
+<span style="font-size:180%">😃</span>
 
 ```.css
 .emoji { font-size: 150%; }

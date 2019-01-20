@@ -7,6 +7,8 @@ Markdownドキュメント中の絵文字をマークアップする [Python-Mar
 絵文字を大きく<span class="emoji" style="font-size:150%">😃</span>
 表示することができます。
 
+![build](https://travis-ci.org/EloiseSeverin/markdown_markup_emoji.svg?branch=master)
+
 ### インストール
 
 pipでインストールします。
@@ -45,6 +47,7 @@ MARKDOWN = {
 
 `<span class="emoji">😃</span>`のようにマークアップされるので、
 すこし大きいフォントで表示されるように、スタイルを追加します。
+<span style="font-size:180%">😃</span>
 
 ```.css
 .emoji { font-size: 150%; }
