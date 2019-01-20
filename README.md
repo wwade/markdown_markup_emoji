@@ -33,7 +33,7 @@ MARKDOWN = {
         'markdown.extensions.codehilite': {'css_class': 'highlight'},
         'markdown.extensions.extra': {},
         'markdown.extensions.meta': {},
-        'markdown_markup_emoji.markup_emoji:MarkupEmojiExtension': {},
+        'markdown_markup_emoji.markup_emoji': {},
     },
     'output_format': 'html5',
 }

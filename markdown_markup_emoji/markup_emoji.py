@@ -5,8 +5,7 @@
 """
 Markup Emoji Extension for Python-Markdown
 
-Python markdown extension for Markup Emoji.
-Should be loaded as an extension to the Python-Markdown library.
+Python-Markdown extension for markup of Emoji in the markdown document.
 """
 import markdown
 

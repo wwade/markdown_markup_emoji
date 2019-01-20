@@ -9,7 +9,7 @@ with open('README.md', 'r', encoding='utf-8') as fh:
 
 setuptools.setup(
     name='markdown_markup_emoji',
-    version='0.1.0',
+    version='0.1.1',
     author='Eloise Severin',
     author_email='Eloise.severin @ gmail.com',
     description='Python markdown extension for markup Emoji',
@@ -29,6 +29,6 @@ setuptools.setup(
     keywords = ['Markdown', 'extension', 'plugin', 'Emoji'],
     entry_points={
         'markdown.extensions': [
-            'markdown_markup_emoji = markdown_markup_emoji:MarkupEmojiExtension']
+            'markup_emoji = markdown_markup_emoji.markdup_emoji:MarkupEmojiExtension']
     },
 )
