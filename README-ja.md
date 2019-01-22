@@ -2,7 +2,7 @@
 <!-- ----*---------*---------*---------*---------*---------*---------*---- -->
 # markdown_markup_emoji
 
-Markdownドキュメント中の絵文字をマークアップする [Python-Markup][] 拡張です。
+Markdownドキュメント中の絵文字をマークアップする [Python-Markdown][] 拡張です。
 `<span class="emoji">😃</span>`のようにマークアップされるので、
 絵文字を大きく<span class="emoji" style="font-size:150%">😃</span>
 表示することができます。
