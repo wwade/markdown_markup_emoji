@@ -41,56 +41,73 @@ class MarkupEmojiTreeProcessor(markdown.treeprocessors.Treeprocessor):
     def run(self, root):
         def _check_range(char, c_range):
             for start, end in c_range:
-                if len(start) >= 2:     # Not supported unicode RANGE
-                    exit
+                # if len(start) >= 2:     # Not supported unicode RANGE
+                #     exit
                 if start <= char <= end:
                     return True
             return False
 
-        def _markup_emoji(text):
+        def _split_emoji(text):
             prev_emoji = curr_emoji = False
-            results = []
+            words = []
             result_text = None
             for char in text:
                 curr_emoji = _check_range(char, RANGE_EMOJI)
                 if prev_emoji == curr_emoji:
                     result_text = (result_text or '') + char
                 else:
-                    results.append(result_text)
+                    words.append(result_text)
                     result_text = char
                     prev_emoji = curr_emoji
-            results.append(result_text)
+            words.append(result_text)
             if curr_emoji:
-                results.append(None)
+                words.append(None)
             # return list of string: ['ascii', ('CJK', 'ascii'), ...]
-            return(results)
+            return(words)
 
-        for e in root.iter():
-            if e.tag == 'span' and e.attrib and e.attrib['class'] == 'emoji':
-                continue
-            if e.text and e.tag in INSIDE_ELEMENTS:
-                results = _markup_emoji(e.text)
-                e.text = results.pop(0)
-                while len(results) > 1:
-                    span = markdown.util.etree.Element('span')
-                    span.attrib['class'] = 'emoji'
-                    span.tail = results.pop()
-                    span.text = results.pop()
-                    e.insert(0, span)
-            if e.tail:
-                results = _markup_emoji(e.tail)
-                if e.tag == 'br':
-                    e.text = results.pop(0)
-                    e.tail = None
-                else:
-                    e.tail = results.pop(0)
-                while len(results) > 1:
-                    span = markdown.util.etree.Element('span')
-                    span.attrib['class'] = 'emoji'
-                    span.tail = results.pop()
-                    span.text = results.pop()
-                    e.append(span)
-        return(root)
+        def _et_copy(src):
+            new = markdown.util.etree.Element(src.tag)
+            new.text = src.text
+            new.tail = src.tail
+            if src.attrib:
+                for key, value in src.attrb:
+                    new.set(key, value)
+            return new
+
+        def _et_emoji(text, tail):
+            new = markdown.util.etree.Element('span')
+            new.text = text
+            new.tail = tail
+            new.set('class', 'emoji')
+            return new
+
+        def _tree_copy(n, src, parent):
+            new = _et_copy(src)
+            parent.append(new)
+            for n, e in enumerate(src):
+                _tree_copy(n, e, new)
+
+            if src.text and src.tag in INSIDE_ELEMENTS:
+                words = _split_emoji(src.text)
+                new.text = words.pop(0)
+                while len(words) > 1:
+                    tail = words.pop()
+                    text = words.pop()
+                    emoji = _et_emoji(text, tail)
+                    new.insert(0, emoji)
+            if src.tail:
+                words = _split_emoji(src.tail)
+                new.tail = words.pop(0)
+                while len(words) > 1:
+                    tail = words.pop()
+                    text = words.pop()
+                    emoji = _et_emoji(text, tail)
+                    parent.insert(n + 1, emoji)
+
+        parent = _et_copy(root)
+        for n, e in enumerate(root):
+            _tree_copy(n, e, parent)
+        return(parent)
 
 
 def makeExtension(**kwargs):    # pragma: no cover

@@ -9,7 +9,7 @@ with open('README.md', 'r', encoding='utf-8') as fh:
 
 setuptools.setup(
     name='markdown_markup_emoji',
-    version='0.1.2',
+    version='0.1.3',
     author='Eloise Severin',
     author_email='Eloise.severin @ gmail.com',
     description='Python markdown extension for markup Emoji',

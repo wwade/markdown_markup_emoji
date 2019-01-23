@@ -9,6 +9,7 @@ import unittest
 EXTENSIONS = ['markdown_markup_emoji.markup_emoji']
 TEST_FILES = (
     ('test01.md', 'output01.html'),
+    ('test02.md', 'output02.html'),
 )
 
 class MarkupEmojiTest(unittest.TestCase):
@@ -21,6 +22,8 @@ class MarkupEmojiTest(unittest.TestCase):
         self.assertEqual(html_string, expected)
 
     def test02_fromFile(self):
+        self.maxDiff = None
+
         for i, (infile, outfile) in enumerate(TEST_FILES):
             with self.subTest(i=i):
                 with open(os.path.join(os.path.dirname(__file__), infile),
