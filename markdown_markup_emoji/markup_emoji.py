@@ -1,4 +1,4 @@
-#!/usr/bin/python3
+# !/usr/bin/python3
 # -*- coding: utf-8 -*-
 # vi:ts=4 sw=4 sts=4 tw=78 et:
 # -----------------------------------------------------------------------------
@@ -10,8 +10,8 @@ Python-Markdown extension for markup of Emoji in the markdown document.
 import markdown
 
 INSIDE_ELEMENTS = (
-    'p', 'div', 'span', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6',
-    'li', 'a', 'th', 'td', 'dt', 'dd'
+    'p', 'div', 'span', 'em', 'i', 'strong', 'ins', 'del',
+    'h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'li', 'a', 'th', 'td', 'dt', 'dd'
 )
 RANGE_EMOJI = (
     ('\u2700', '\u27bf'),           # Dingbats
@@ -29,14 +29,24 @@ RANGE_EMOJI = (
 class MarkupEmojiExtension(markdown.Extension):
     """Markup Emoji Extension for Python-Markdown."""
 
+    def __init__(self, **kwargs):
+        self.config = {
+            'inside_elements': (INSIDE_ELEMENTS, "Convert the contents of the this tags"),
+        }
+        super(MarkupEmojiExtension, self).__init__(**kwargs)
+
     def extendMarkdown(self, md, md_globals=None):
         # Register instance with a priority.
         md.treeprocessors.register(
-            MarkupEmojiTreeProcessor(md), 'markup_emoji', 4)
+            MarkupEmojiTreeProcessor(md, self.config), 'markup_emoji', 4)
 
 
 class MarkupEmojiTreeProcessor(markdown.treeprocessors.Treeprocessor):
     """Markup Emoji Extension Processor."""
+
+    def __init__(self, md, config):
+        super(MarkupEmojiTreeProcessor, self).__init__(md)
+        self.inside_elements = config['inside_elements'][0]
 
     def run(self, root):
         def _check_range(char, c_range):
@@ -63,15 +73,14 @@ class MarkupEmojiTreeProcessor(markdown.treeprocessors.Treeprocessor):
             if curr_emoji:
                 words.append(None)
             # return list of string: ['ascii', ('CJK', 'ascii'), ...]
-            return(words)
+            return words
 
         def _et_copy(src):
             new = markdown.util.etree.Element(src.tag)
             new.text = src.text
             new.tail = src.tail
-            if src.attrib:
-                for key, value in src.attrb:
-                    new.set(key, value)
+            for key, value in src.items():
+                new.set(key, value)
             return new
 
         def _et_emoji(text, tail):
@@ -81,33 +90,36 @@ class MarkupEmojiTreeProcessor(markdown.treeprocessors.Treeprocessor):
             new.set('class', 'emoji')
             return new
 
-        def _tree_copy(n, src, parent):
-            new = _et_copy(src)
-            parent.append(new)
-            for n, e in enumerate(src):
-                _tree_copy(n, e, new)
+        def _recursive_copy(src):
+            dst = _et_copy(src)
+            for n, s in enumerate(list(src)):
+                d = _recursive_copy(s)
+                dst.append(d)
 
-            if src.text and src.tag in INSIDE_ELEMENTS:
-                words = _split_emoji(src.text)
-                new.text = words.pop(0)
-                while len(words) > 1:
-                    tail = words.pop()
-                    text = words.pop()
-                    emoji = _et_emoji(text, tail)
-                    new.insert(0, emoji)
-            if src.tail:
-                words = _split_emoji(src.tail)
-                new.tail = words.pop(0)
-                while len(words) > 1:
-                    tail = words.pop()
-                    text = words.pop()
-                    emoji = _et_emoji(text, tail)
-                    parent.insert(n + 1, emoji)
+                if (s.tag == 'span' and hasattr(s.attrib, 'class')
+                        and s.attrib['class'] == 'emoji'):
+                    return
+                if s.text and s.tag in self.inside_elements:
+                    words = _split_emoji(s.text)
+                    d.text = words.pop(0)
+                    while len(words) > 1:
+                        tail = words.pop()
+                        text = words.pop()
+                        emoji = _et_emoji(text, tail)
+                        d.insert(0, emoji)
+                if s.tail:
+                    words = _split_emoji(s.tail)
+                    d.tail = words.pop(0)
+                    while len(words) > 1:
+                        tail = words.pop()
+                        text = words.pop()
+                        emoji = _et_emoji(text, tail)
+                        dst.insert(n + 1, emoji)
 
-        parent = _et_copy(root)
-        for n, e in enumerate(root):
-            _tree_copy(n, e, parent)
-        return(parent)
+            return(dst)
+
+        new = _recursive_copy(root)
+        return new
 
 
 def makeExtension(**kwargs):    # pragma: no cover

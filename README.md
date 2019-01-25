@@ -12,7 +12,7 @@ Make your Emoji bigger You can display it.
 Install with pip.
 
 ```
-$ pip install markdown_markup_emoji
+$ pip install markdown-markup-emoji
 ```
 
 ### Usage

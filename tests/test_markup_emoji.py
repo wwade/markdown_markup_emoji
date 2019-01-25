@@ -23,7 +23,6 @@ class MarkupEmojiTest(unittest.TestCase):
 
     def test02_fromFile(self):
         self.maxDiff = None
-
         for i, (infile, outfile) in enumerate(TEST_FILES):
             with self.subTest(i=i):
                 with open(os.path.join(os.path.dirname(__file__), infile),
@@ -33,6 +32,11 @@ class MarkupEmojiTest(unittest.TestCase):
                 with open(os.path.join(os.path.dirname(__file__), outfile),
                           'r', encoding='utf-8') as f:
                     expected = f.read().replace('\n', '')
+
+                # with open(os.path.join(os.path.dirname(__file__),
+                #        outfile + '.debug'), 'w', encoding='utf-8') as f0:
+                #    f0.write(html_string)
+
                 self.assertEqual(html_string, expected)
 
 

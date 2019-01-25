@@ -14,7 +14,7 @@ Markdownドキュメント中の絵文字をマークアップする [Python-Mar
 pipでインストールします。
 
 ```
-$ pip install markdown_markup_emoji
+$ pip install markdown-markup-emoji
 ```
 
 ### 利用方法
