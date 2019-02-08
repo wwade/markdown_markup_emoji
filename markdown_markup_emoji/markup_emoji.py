@@ -14,13 +14,20 @@ INSIDE_ELEMENTS = (
     'h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'li', 'a', 'th', 'td', 'dt', 'dd'
 )
 RANGE_EMOJI = (
-    ('\u2700', '\u27bf'),           # Dingbats
-    ('\U0001f650', '\U0001f67f'),   # Ornamental Dingbats
-    ('\U0001f600', '\U0001f64f'),   # Emoticons
+    ('\u2300', '\u23ff'),           # Miscellaneous Technical
     ('\u2600', '\u26ff'),           # Miscellaneous Symbols
+    ('\u2700', '\u27bf'),           # Dingbats
+    ('\u2b00', '\u2bff'),           # Miscellaneous Symbols and Arrows
+    ('\U0001f000', '\U0001f02f'),   # Mahjong Tiles
+    ('\U0001f0a0', '\U0001f0ff'),   # Playing Cards
+    ('\U0001f100', '\U0001f1ff'),   # Enclosed Alphanumeric Supplement
+    ('\U0001f200', '\U0001f2ff'),   # Enclosed Ideographic Supplement
     ('\U0001f300', '\U0001f5ff'),   # Miscellaneous Symbols and Pictographs
-    ('\U0001f900', '\U0001f9ff'),   # Supplemental Symbols and Pictographs
+    ('\U0001f600', '\U0001f64f'),   # Emoticons
+    ('\U0001f650', '\U0001f67f'),   # Ornamental Dingbats
     ('\U0001f680', '\U0001f6ff'),   # Transport and Map Symbols
+    ('\U0001f780', '\U0001f7ff'),   # Geometric Shapes Extended
+    ('\U0001f900', '\U0001f9ff'),   # Supplemental Symbols and Pictographs
     ('\u200d', '\u200d'),           # ZERO WIDTH JOINER
     ('\ufe0e', '\ufe0f'),           # VARIATION SELECTOR-15/16
 )
