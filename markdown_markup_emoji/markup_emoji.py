@@ -38,7 +38,8 @@ class MarkupEmojiExtension(markdown.Extension):
 
     def __init__(self, **kwargs):
         self.config = {
-            'inside_elements': (INSIDE_ELEMENTS, "Convert the contents of the this tags"),
+            'inside_elements': (
+                INSIDE_ELEMENTS, "Convert the contents of the this tags"),
         }
         super(MarkupEmojiExtension, self).__init__(**kwargs)
 
