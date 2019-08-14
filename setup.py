@@ -26,7 +26,7 @@ setuptools.setup(
     install_requires=['Markdown>=3.0.0'],
     test_suite='tests',
     packages=['markdown_markup_emoji'],
-    keywords = ['Markdown', 'extension', 'plugin', 'Emoji'],
+    keywords=['Markdown', 'extension', 'plugin', 'Emoji'],
     entry_points={
         'markdown.extensions': [
             'markup_emoji = markdown_markup_emoji.markdup_emoji:MarkupEmojiExtension']

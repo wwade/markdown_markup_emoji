@@ -1,6 +1,5 @@
-# !/usr/bin/python3
+# !/usr/bin/python
 # -*- coding: utf-8 -*-
-# vi:ts=4 sw=4 sts=4 tw=78 et:
 # -----------------------------------------------------------------------------
 """
 Markup Emoji Extension for Python-Markdown
