@@ -29,6 +29,6 @@ setuptools.setup(
     keywords=['Markdown', 'extension', 'plugin', 'Emoji'],
     entry_points={
         'markdown.extensions': [
-            'markup_emoji = markdown_markup_emoji.markdup_emoji:MarkupEmojiExtension']
+            'markup_emoji = markdown_markup_emoji.markup_emoji:MarkupEmojiExtension']
     },
 )
